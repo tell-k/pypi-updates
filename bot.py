@@ -96,7 +96,7 @@ class PypiUpdatesBot(kuroko.Bot):
             # truncate description text.
             desc = item['description'].replace('\n', ' ').replace('\r', '')
             base = "{}: {}".format(item['title'], desc)
-            real_len =  len(base) + len(url) + 1
+            real_len = len(base) + len(url) + 1
             if TWEET_MAX_LENGTH < real_len:
                 truncate_len = real_len - TWEET_MAX_LENGTH + len(ELIPSIS)
                 base = base[:-truncate_len] + ELIPSIS
