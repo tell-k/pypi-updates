@@ -52,7 +52,7 @@ class PypiUpdatesBot(kuroko.Bot):
     def bitly_api(self):
         if hasattr(self, "_bitly_api"):
             return self._bitly_api
-        self._bitly_api = bitlyapi.bitlyBitLy(
+        self._bitly_api = bitlyapi.BitLy(
             os.getenv("BITLY_USERNAME"),
             os.getenv("BITLY_API_KEY")
         )
@@ -61,7 +61,8 @@ class PypiUpdatesBot(kuroko.Bot):
     def _to_string(self, dt):
         return parser.parse(dt).strftime('%Y%m%d%H%M%S')
 
-    @kuroko.crontab('*/1 * * * *')
+    #@kuroko.crontab('*/1 * * * *')
+    @kuroko.timer(10)
     def update_status(self):
 
         rss = feedparser.parse(RSS_URL)
@@ -88,8 +89,8 @@ class PypiUpdatesBot(kuroko.Bot):
             try:
                 res = self.bitly_api.shorten(longUrl=item['link'])
                 url = res['url']
-            except bitlyapi.APIError as e:
-                self.log.error(e.message)
+            except bitlyapi.bitly.APIError as e:
+                self.log.error(e)
                 url = item['link']
 
             # truncate description text.
