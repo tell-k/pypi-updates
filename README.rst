@@ -15,7 +15,9 @@ Required
 * `Heroku account <https://id.heroku.com/signup>`_
 * `Heroku Toolbelt <https://devcenter.heroku.com/articles/getting-started-with-python#set-up>`_
 * `Twitter account <https://twitter.com/signup>`_
-* `Twitter API Tokens <https://apps.twitter.com/>`_
+* `Twitter API tokens <https://apps.twitter.com/>`_
+* `bitly account <https://bitly.com/a/sign_up>`_
+* `bitly API key <https://bitly.com/a/your_api_key>`_
 
 ::
 
@@ -50,6 +52,8 @@ Write your Twitter API tokens
  TWITTER_CONSUMER_SECRET=[your consumer secret]
  TWITTER_ACCESS_KEY=[your access key]
  TWITTER_ACCESS_SECRET=[your access secret]
+ BITLY_USERNAME=[your bitly username]
+ BITLY_API_KEY=[your bitly api key]
 
 2. Create heroku apps and settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,6 +72,8 @@ Confirm enviroment values.
 
  $ heroku config
  === xxxxxx-xxxxxx-xxxx Config Vars
+ BITLY_API_KEY:           xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ BITLY_USERNAME:          xxxxxxxxxxxxxxx
  MEMCACHIER_PASSWORD:     xxxxxxxxxx
  MEMCACHIER_SERVERS:      xxx.xxx.xxx.xxxxxxx.xxxx:xxxxxx
  MEMCACHIER_USERNAME:     xxxxxxxx
@@ -95,8 +101,3 @@ LICENSE
 
 * MIT License
 * See the LICENSE file for specific terms.
-
-TODO
------------------------------------------
-
-* I'll use the shortened URL.

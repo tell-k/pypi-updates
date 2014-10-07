@@ -61,8 +61,7 @@ class PypiUpdatesBot(kuroko.Bot):
     def _to_string(self, dt):
         return parser.parse(dt).strftime('%Y%m%d%H%M%S')
 
-    #@kuroko.crontab('*/1 * * * *')
-    @kuroko.timer(10)
+    @kuroko.crontab('*/1 * * * *')
     def update_status(self):
 
         rss = feedparser.parse(RSS_URL)
