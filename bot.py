@@ -97,7 +97,7 @@ class PypiUpdatesBot(kuroko.Bot):
             remain_len = TWEET_MAX_LENGTH - must_len
             desc = item['description']
             if remain_len < len(desc):
-                desc = desc[:remain_len - 2] + '..'
+                desc = desc[:remain_len - 6] + '..'
 
             message = "{}: {} {}".format(item['title'], desc, url)
             self.log.info(message)
