@@ -12,6 +12,7 @@ import kuroko
 import tweepy
 import feedparser
 import pylibmc
+import bitlyapi
 from dateutil import parser
 
 RSS_URL = "https://pypi.python.org/pypi?:action=rss"
@@ -20,7 +21,10 @@ TWEET_MAX_LENGTH = 140
 
 class PypiUpdatesBot(kuroko.Bot):
 
-    def _tweepy_api(self):
+    @property
+    def tweepy_api(self):
+        if hasattr(self, "_tweepy_api"):
+            return self._tweepy_api
         auth = tweepy.OAuthHandler(
             os.getenv("TWITTER_CONSUMER_KEY"),
             os.getenv("TWITTER_CONSUMER_SECRET"),
@@ -29,31 +33,46 @@ class PypiUpdatesBot(kuroko.Bot):
             os.getenv("TWITTER_ACCESS_KEY"),
             os.getenv("TWITTER_ACCESS_SECRET")
         )
-        return tweepy.API(auth)
+        self._tweepy_api = tweepy.API(auth)
+        return self._tweepy_api
 
-    def _memcache_client(self):
-        return pylibmc.Client(
+    @property
+    def memcache(self):
+        if hasattr(self, "_memcache"):
+            return self._memcache
+        self._memcache = pylibmc.Client(
             [os.getenv("MEMCACHIER_SERVERS")],
             username=os.getenv("MEMCACHIER_USERNAME"),
             password=os.getenv("MEMCACHIER_PASSWORD"),
             binary=True
         )
+        return self._memcache
+
+    @property
+    def bitly_api(self):
+        if hasattr(self, "_bitly_api"):
+            return self._bitly_api
+        self._bitly_api = bitlyapi.bitlyBitLy(
+            os.getenv("BITLY_USERNAME"),
+            os.getenv("BITLY_API_KEY")
+        )
+        return self._bitly_api
 
     def _to_string(self, dt):
         return parser.parse(dt).strftime('%Y%m%d%H%M%S')
 
     @kuroko.crontab('*/1 * * * *')
     def update_status(self):
+
         rss = feedparser.parse(RSS_URL)
         # skip non feed items.
         if not rss['items']:
             return
 
-        mc = self._memcache_client()
-        latest_published = mc.get("latest_published")
+        latest_published = self.memcache.get("latest_published")
         if not latest_published:
             latest_published = self._to_string(rss['items'][0]['published'])
-            mc.set("latest_published", latest_published)
+            self.memcache.set("latest_published", latest_published)
 
         self.log.info("latest_published => {}".format(latest_published))
 
@@ -65,17 +84,25 @@ class PypiUpdatesBot(kuroko.Bot):
             if int(latest_published) >= int(published):
                 continue
 
+            # shorten url
+            try:
+                res = self.bitly_api.shorten(longUrl=item['link'])
+                url = res['url']
+            except bitlyapi.APIError as e:
+                self.log.error(e.message)
+                url = item['link']
+
             # truncate description text.
-            must_len = len(item['title']) + len(item['link'])
+            must_len = len(item['title']) + len(url)
             remain_len = TWEET_MAX_LENGTH - must_len
             desc = item['description']
             if remain_len < len(desc):
                 desc = desc[:remain_len - 2] + '..'
 
-            message = "{}: {} {}".format(item['title'], desc, item['link'])
+            message = "{}: {} {}".format(item['title'], desc, url)
             self.log.info(message)
             try:
-                self._tweepy_api().update_status(message)
+                self.tweepy_api.update_status(message)
             except tweepy.TweepError as e:
                 self.log.error(e.message)
 
@@ -83,7 +110,8 @@ class PypiUpdatesBot(kuroko.Bot):
                 tmp_published = published
 
         # update latest_published
-        mc.set("latest_published", tmp_published)
+        if int(tmp_published) > int(latest_published):
+            self.memcache.set("latest_published", tmp_published)
 
 
 if __name__ == "__main__":
