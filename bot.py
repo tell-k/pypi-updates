@@ -73,8 +73,11 @@ class PypiUpdatesBot(kuroko.Bot):
                 desc = desc[:remain_len - 2] + '..'
 
             message = "{}: {} {}".format(item['title'], desc, item['link'])
-            self._tweepy_api().update_status(message)
             self.log.info(message)
+            try:
+                self._tweepy_api().update_status(message)
+            except tweepy.TweepError as e:
+                self.log.error(e.message)
 
             if int(tmp_published) < int(published):
                 tmp_published = published
