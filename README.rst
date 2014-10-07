@@ -30,7 +30,7 @@ Setup
 
 ::
 
- $ git@github.com:tell-k/pypi-updates-bot.git
+ $ git clone git@github.com:tell-k/pypi-updates-bot.git
 
 
 2. Create ".env" file
