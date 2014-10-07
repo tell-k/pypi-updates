@@ -17,6 +17,7 @@ from dateutil import parser
 
 RSS_URL = "https://pypi.python.org/pypi?:action=rss"
 TWEET_MAX_LENGTH = 140
+ELIPSIS = "..."
 
 
 class PypiUpdatesBot(kuroko.Bot):
@@ -93,13 +94,14 @@ class PypiUpdatesBot(kuroko.Bot):
                 url = item['link']
 
             # truncate description text.
-            must_len = len(item['title']) + len(url)
-            remain_len = TWEET_MAX_LENGTH - must_len
-            desc = item['description']
-            if remain_len < len(desc):
-                desc = desc[:remain_len - 6] + '..'
+            desc = item['description'].replace('\n', ' ').replace('\r', '')
+            base = "{}: {}".format(item['title'], desc)
+            real_len =  len(base) + len(url) + 1
+            if TWEET_MAX_LENGTH < real_len:
+                truncate_len = real_len - TWEET_MAX_LENGTH + len(ELIPSIS)
+                base = base[:-truncate_len] + ELIPSIS
 
-            message = "{}: {} {}".format(item['title'], desc, url)
+            message = "{} {}".format(base, url)
             self.log.info(message)
             try:
                 self.tweepy_api.update_status(message)
