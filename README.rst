@@ -86,7 +86,7 @@ Confirm enviroment values.
  $ heroku ps:scale bot=1
 
  # Confirm application log
- $ heroku logs -tail
+ $ heroku logs --tail
 
 
 LICENSE
