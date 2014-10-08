@@ -64,10 +64,11 @@ class PypiUpdatesBot(kuroko.Bot):
 
     @kuroko.crontab('*/1 * * * *')
     def update_status(self):
-
         rss = feedparser.parse(RSS_URL)
+
         # skip non feed items.
-        if not rss['items']:
+        if not rss or not rss['items']:
+            self.log.warning("Can't fetch RSS: {}".format(RSS_URL))
             return
 
         latest_published = self.memcache.get("latest_published")
@@ -95,7 +96,10 @@ class PypiUpdatesBot(kuroko.Bot):
 
             # truncate description text.
             desc = item['description'].replace('\n', ' ').replace('\r', '')
-            base = "{}: {}".format(item['title'], desc)
+            base = "{}: {}".format(
+                item['title'].encode('utf-8', errors="ignore"),
+                desc.encode('utf-8', errors="ignore")
+            )
             real_len = len(base) + len(url) + 1
             if TWEET_MAX_LENGTH < real_len:
                 truncate_len = real_len - TWEET_MAX_LENGTH + len(ELIPSIS)
