@@ -64,7 +64,6 @@ class PypiUpdatesBot(kuroko.Bot):
 
     @kuroko.crontab('*/1 * * * *')
     def update_status(self):
-        return
         rss = feedparser.parse(RSS_URL)
 
         # skip non feed items.
