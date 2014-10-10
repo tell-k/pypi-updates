@@ -46,7 +46,8 @@ class TestPypiUpdatesBot(object):
         # same instance check
         assert target_obj.tweepy_api is target_obj.tweepy_api
 
-    @mock.patch("bot.pylibmc.Client", return_value=DummyMemcache())
+    @mock.patch("pypi_updates.bot.pylibmc.Client",
+                return_value=DummyMemcache())
     def test_memcache(self, mock_memcache):
         target_obj = self._make_one()
         assert target_obj.memcache is not None
@@ -59,7 +60,7 @@ class TestPypiUpdatesBot(object):
         # same instance check
         assert target_obj.bitly_api is target_obj.bitly_api
 
-    @mock.patch("bot.feedparser.parse", return_value=None)
+    @mock.patch("pypi_updates.bot.feedparser.parse", return_value=None)
     def test_canot_parse_feed(self, mock):
         from pypi_updates.bot import RSS_URL
         target_obj = self._make_one()
@@ -74,7 +75,8 @@ class TestPypiUpdatesBot(object):
         assert log_handler.formatted_records == expected
         mock.assert_called_with(RSS_URL)
 
-    @mock.patch("bot.feedparser.parse", return_value={"items": []})
+    @mock.patch("pypi_updates.bot.feedparser.parse",
+                return_value={"items": []})
     def test_canot_parse_items(self, mock):
         from pypi_updates.bot import RSS_URL
         target_obj = self._make_one()
@@ -88,9 +90,11 @@ class TestPypiUpdatesBot(object):
         ]
         mock.assert_called_with(RSS_URL)
 
-    @mock.patch("bot.pylibmc.Client", return_value=DummyMemcache())
-    @mock.patch("bot.bitlyapi.BitLy", return_value=DummyBitlyAPI())
-    @mock.patch("bot.tweepy.API", return_value=DummyTweepyAPI())
+    @mock.patch("pypi_updates.bot.pylibmc.Client",
+                return_value=DummyMemcache())
+    @mock.patch("pypi_updates.bot.bitlyapi.BitLy",
+                return_value=DummyBitlyAPI())
+    @mock.patch("pypi_updates.bot.tweepy.API", return_value=DummyTweepyAPI())
     def test_update_status(self, mock_memcache, mock_bitly, mock_tweepy):
         from pypi_updates.bot import RSS_URL
         target_obj = self._make_one()
@@ -113,7 +117,8 @@ class TestPypiUpdatesBot(object):
             ]
         }
 
-        m_parse = mock.patch("bot.feedparser.parse", return_value=dummy_feed)
+        m_parse = mock.patch("pypi_updates.bot.feedparser.parse",
+                             return_value=dummy_feed)
         with logbook.TestHandler() as log_handler, m_parse as m:
             update_status(target_obj)
 
@@ -125,8 +130,9 @@ class TestPypiUpdatesBot(object):
         m.assert_called_with(RSS_URL)
         assert target_obj.memcache.get('latest_published') == '20141009153126'
 
-    @mock.patch("bot.bitlyapi.BitLy", return_value=DummyBitlyAPI())
-    @mock.patch("bot.tweepy.API", return_value=DummyTweepyAPI())
+    @mock.patch("pypi_updates.bot.bitlyapi.BitLy",
+                return_value=DummyBitlyAPI())
+    @mock.patch("pypi_updates.bot.tweepy.API", return_value=DummyTweepyAPI())
     def test_already_set_latest_published(self, mock_bitly, mock_tweepy):
 
         from pypi_updates.bot import RSS_URL
@@ -154,8 +160,10 @@ class TestPypiUpdatesBot(object):
         dummy_memcache.set('latest_published', "20141009151859")
 
         with logbook.TestHandler() as log_handler,\
-                mock.patch("bot.feedparser.parse", return_value=dummy_feed) as m,\
-                mock.patch("bot.pylibmc.Client", return_value=dummy_memcache):
+                mock.patch("pypi_updates.bot.feedparser.parse",
+                           return_value=dummy_feed) as m,\
+                mock.patch("pypi_updates.bot.pylibmc.Client",
+                           return_value=dummy_memcache):
 
             update_status(target_obj)
 
@@ -186,8 +194,10 @@ class TestPypiUpdatesBot(object):
         dummy_memcache.set('latest_published', "20141009153126")
 
         with logbook.TestHandler() as log_handler,\
-                mock.patch("bot.feedparser.parse", return_value=dummy_feed) as m,\
-                mock.patch("bot.pylibmc.Client", return_value=dummy_memcache):
+                mock.patch("pypi_updates.bot.feedparser.parse",
+                           return_value=dummy_feed) as m,\
+                mock.patch("pypi_updates.bot.pylibmc.Client",
+                           return_value=dummy_memcache):
 
             update_status(target_obj)
 
@@ -197,8 +207,9 @@ class TestPypiUpdatesBot(object):
         m.assert_called_with(RSS_URL)
         assert target_obj.memcache.get('latest_published') == '20141009153126'
 
-    @mock.patch("bot.pylibmc.Client", return_value=DummyMemcache())
-    @mock.patch("bot.tweepy.API", return_value=DummyTweepyAPI())
+    @mock.patch("pypi_updates.bot.pylibmc.Client",
+                return_value=DummyMemcache())
+    @mock.patch("pypi_updates.bot.tweepy.API", return_value=DummyTweepyAPI())
     def test_raise_bitly_error(self, mock_memcache, mock_tweepy):
         from pypi_updates.bot import RSS_URL
 
@@ -224,8 +235,10 @@ class TestPypiUpdatesBot(object):
         dummy_bitly_api.shorten = _shorten_raise_error
 
         with logbook.TestHandler() as log_handler,\
-                mock.patch("bot.feedparser.parse", return_value=dummy_feed) as m,\
-                mock.patch("bot.bitlyapi.BitLy", return_value=dummy_bitly_api):
+                mock.patch("pypi_updates.bot.feedparser.parse",
+                           return_value=dummy_feed) as m,\
+                mock.patch("pypi_updates.bot.bitlyapi.BitLy",
+                           return_value=dummy_bitly_api):
 
             update_status(target_obj)
 
@@ -237,8 +250,9 @@ class TestPypiUpdatesBot(object):
         m.assert_called_with(RSS_URL)
         assert target_obj.memcache.get('latest_published') == '20141009153126'
 
-    @mock.patch("bot.pylibmc.Client", return_value=DummyMemcache())
-    @mock.patch("bot.tweepy.API", return_value=DummyTweepyAPI())
+    @mock.patch("pypi_updates.bot.pylibmc.Client",
+                return_value=DummyMemcache())
+    @mock.patch("pypi_updates.bot.tweepy.API", return_value=DummyTweepyAPI())
     def test_tweet_over_length(self, mock_memcache, mock_tweepy):
         from pypi_updates.bot import RSS_URL
         target_obj = self._make_one()
@@ -265,8 +279,10 @@ class TestPypiUpdatesBot(object):
         dummy_bitly_api.shorten = lambda longUrl: {"url": "a"}
 
         with logbook.TestHandler() as log_handler,\
-                mock.patch("bot.feedparser.parse", return_value=dummy_feed) as m,\
-                mock.patch("bot.bitlyapi.BitLy", return_value=dummy_bitly_api):
+                mock.patch("pypi_updates.bot.feedparser.parse",
+                           return_value=dummy_feed) as m,\
+                mock.patch("pypi_updates.bot.bitlyapi.BitLy",
+                           return_value=dummy_bitly_api):
 
             update_status(target_obj)
 
@@ -278,8 +294,10 @@ class TestPypiUpdatesBot(object):
         m.assert_called_with(RSS_URL)
         assert target_obj.memcache.get('latest_published') == '20141009153126'
 
-    @mock.patch("bot.pylibmc.Client", return_value=DummyMemcache())
-    @mock.patch("bot.bitlyapi.BitLy", return_value=DummyBitlyAPI())
+    @mock.patch("pypi_updates.bot.pylibmc.Client",
+                return_value=DummyMemcache())
+    @mock.patch("pypi_updates.bot.bitlyapi.BitLy",
+                return_value=DummyBitlyAPI())
     def test_raise_tweepy_error(self, mock_memcache, mock_bitly):
         from pypi_updates.bot import RSS_URL
 
@@ -305,8 +323,10 @@ class TestPypiUpdatesBot(object):
         dummy_tweepy_api.update_status = _update_status_error
 
         with logbook.TestHandler() as log_handler,\
-                mock.patch("bot.feedparser.parse", return_value=dummy_feed) as m,\
-                mock.patch("bot.tweepy.API", return_value=dummy_tweepy_api):
+                mock.patch("pypi_updates.bot.feedparser.parse",
+                           return_value=dummy_feed) as m,\
+                mock.patch("pypi_updates.bot.tweepy.API",
+                           return_value=dummy_tweepy_api):
 
             update_status(target_obj)
 
@@ -318,9 +338,11 @@ class TestPypiUpdatesBot(object):
         m.assert_called_with(RSS_URL)
         assert target_obj.memcache.get('latest_published') == '20141009153125'
 
-    @mock.patch("bot.pylibmc.Client", return_value=DummyMemcache())
-    @mock.patch("bot.bitlyapi.BitLy", return_value=DummyBitlyAPI())
-    @mock.patch("bot.tweepy.API", return_value=DummyTweepyAPI())
+    @mock.patch("pypi_updates.bot.pylibmc.Client",
+                return_value=DummyMemcache())
+    @mock.patch("pypi_updates.bot.bitlyapi.BitLy",
+                return_value=DummyBitlyAPI())
+    @mock.patch("pypi_updates.bot.tweepy.API", return_value=DummyTweepyAPI())
     def test_multibyte_language(self, mock_memcache, mock_bitly, mock_tweepy):
 
         from pypi_updates.bot import RSS_URL
@@ -338,7 +360,8 @@ class TestPypiUpdatesBot(object):
             ]
         }
 
-        m_parse = mock.patch("bot.feedparser.parse", return_value=dummy_feed)
+        m_parse = mock.patch("pypi_updates.bot.feedparser.parse",
+                             return_value=dummy_feed)
         with logbook.TestHandler() as log_handler, m_parse as m:
             update_status(target_obj)
 
