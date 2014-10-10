@@ -6,7 +6,7 @@ env:
    - TOXENV=pypy
    - TOXENV=flake8
 install:
-  - tox
+  - pip install tox
   - if test "$TOXENV" = py27 ; then pip install coveralls ; fi
 script: tox
 after_script:
