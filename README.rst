@@ -115,7 +115,7 @@ LICENSE
     :alt: coveralls.io
 
 .. |gratipay| image:: https://raw.githubusercontent.com/twolfson/gittip-badge/master/dist/gratipay.png
-    :width: 70%
+    :scale: 70%
     :target: https://gratipay.com/tell-k/
     :alt: gratipay
     
