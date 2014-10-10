@@ -5,7 +5,7 @@ PyPI Recent Updates Bot
 Description
 -----------------------------------------
 
-* Twitter bot for PyPI Recent Updates
+* Bot for PyPI Recent Updates
 * Bot will check the latest RSS(https://pypi.python.org/pypi?:action=rss) once per minute.
 * https://twitter.com/pypi_updates
 

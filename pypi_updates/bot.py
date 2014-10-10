@@ -96,9 +96,9 @@ class PypiUpdatesBot(kuroko.Bot):
 
             # truncate description text.
             desc = item['description'].replace('\n', ' ')
-            base = "{}: {}".format(
-                item['title'].encode('utf-8', errors="ignore"),
-                desc.encode('utf-8', errors="ignore")
+            base = u"{}: {}".format(
+                item['title'],
+                desc
             )
             real_len = len(base) + len(url) + 1
             if TWEET_MAX_LENGTH < real_len:
@@ -106,7 +106,7 @@ class PypiUpdatesBot(kuroko.Bot):
                 base = base[:-truncate_len] + ELIPSIS
 
             # tweet
-            message = "{} {}".format(base, url)
+            message = u"{} {}".format(base, url)
             self.log.info(message)
             try:
                 self.tweepy_api.update_status(message)
@@ -118,9 +118,3 @@ class PypiUpdatesBot(kuroko.Bot):
 
             except tweepy.TweepError as e:
                 self.log.error(e.message)
-
-
-if __name__ == "__main__":
-
-    bot = PypiUpdatesBot()
-    bot.start()
