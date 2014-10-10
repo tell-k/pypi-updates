@@ -2,7 +2,7 @@
 PyPI Recent Updates Bot
 ==========================================
 
-|travis| |coveralls| |gratipay|
+|travis| |coveralls|
 
 Description
 -----------------------------------------
@@ -98,11 +98,18 @@ Confirm enviroment values.
  $ heroku logs --tail
 
 
-LICENSE
+Licence
 -----------------------------------------
 
 * MIT License
 * See the LICENSE file for specific terms.
+
+Donating
+-----------------------------------------
+
+Support this project and `others by tell-k<https://gratipay.com/tell-k/>`_ via `gratipay<https://gratipay.com/tell-k/>`_.
+
+|gratipay|
 
 
 .. |travis| image:: https://travis-ci.org/tell-k/pypi-updates.svg?branch=master
@@ -115,7 +122,6 @@ LICENSE
     :alt: coveralls.io
 
 .. |gratipay| image:: https://raw.githubusercontent.com/twolfson/gittip-badge/master/dist/gratipay.png
-    :scale: 20%
     :target: https://gratipay.com/tell-k/
     :alt: gratipay
     
