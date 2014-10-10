@@ -2,6 +2,8 @@
 PyPI Recent Updates Bot
 ==========================================
 
+|travis| |coveralls| 
+
 Description
 -----------------------------------------
 
@@ -101,3 +103,13 @@ LICENSE
 
 * MIT License
 * See the LICENSE file for specific terms.
+
+
+.. |travis| image:: https://travis-ci.org/tell-k/pypi-updates.svg?branch=master
+    :target: https://travis-ci.org/tell-k/pypi-updates
+
+
+.. |coveralls| image:: https://coveralls.io/repos/tell-k/pypi-updates/badge.png
+    :target: https://coveralls.io/r/tell-k/pypi-updates
+    :alt: coveralls.io
+
