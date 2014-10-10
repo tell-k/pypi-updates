@@ -107,7 +107,7 @@ Licence
 Donating
 -----------------------------------------
 
-Support this project and `others by tell-k<https://gratipay.com/tell-k/>`_ via `gratipay<https://gratipay.com/tell-k/>`_.
+Support this project and `others by tell-k <https://gratipay.com/tell-k/>`_ via `gratipay <https://gratipay.com/tell-k/>`_.
 
 |gratipay|
 
