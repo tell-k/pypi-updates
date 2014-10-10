@@ -2,7 +2,7 @@
 PyPI Recent Updates Bot
 ==========================================
 
-|travis| |coveralls| 
+|travis| |coveralls| |gratipay|
 
 Description
 -----------------------------------------
@@ -112,4 +112,8 @@ LICENSE
 .. |coveralls| image:: https://coveralls.io/repos/tell-k/pypi-updates/badge.png
     :target: https://coveralls.io/r/tell-k/pypi-updates
     :alt: coveralls.io
+
+.. |gratipay| raw:: html
+    
+   <script data-gratipay-username="tell-k" data-gratipay-widget="button" src="//gttp.co/v1.js"></script>
 
