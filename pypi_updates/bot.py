@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    PyPI Recent Updates Twitter bot
+    pypi_updates.bot
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Bot for PyPI Recent Updates
 
     :author: tell-k <ffk2005@gmail.com>
     :copyright: tell-k. All Rights Reserved.

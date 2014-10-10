@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+    run bot.
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    :author: tell-k <ffk2005@gmail.com>
+    :copyright: tell-k. All Rights Reserved.
+"""
 from pypi_updates import PypiUpdatesBot
 
-
-if __name__ == "__main__":
-
-    bot = PypiUpdatesBot()
-    bot.start()
+bot = PypiUpdatesBot()
+bot.start()
