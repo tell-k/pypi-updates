@@ -107,13 +107,15 @@ LICENSE
 
 .. |travis| image:: https://travis-ci.org/tell-k/pypi-updates.svg?branch=master
     :target: https://travis-ci.org/tell-k/pypi-updates
+    :alt: travis-ci.org
 
 
 .. |coveralls| image:: https://coveralls.io/repos/tell-k/pypi-updates/badge.png
     :target: https://coveralls.io/r/tell-k/pypi-updates
     :alt: coveralls.io
 
-.. |gratipay| raw:: html
+.. |gratipay| image:: https://raw.githubusercontent.com/twolfson/gittip-badge/master/dist/gratipay.png
+    :width: 70%
+    :target: https://gratipay.com/tell-k/
+    :alt: gratipay
     
-   <script data-gratipay-username="tell-k" data-gratipay-widget="button" src="//gttp.co/v1.js"></script>
-
