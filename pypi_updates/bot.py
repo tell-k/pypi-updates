@@ -19,7 +19,7 @@ from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
 RSS_URL = "https://pypi.python.org/pypi?:action=rss"
-TWEET_MAX_LENGTH = 140
+TWEET_MAX_LENGTH = 130
 ELIPSIS = "..."
 
 

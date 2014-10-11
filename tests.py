@@ -263,13 +263,13 @@ class TestPypiUpdatesBot(object):
                 {
                     'title': 'a',
                     'link': 'http://example.com/1/',
-                    'description': 'a' * 136,  # truncate
+                    'description': 'a' * 126,  # truncate
                     'published': '09 Oct 2014 15:31:26 GMT'
                 },
                 {
                     'title': 'a',
                     'link': 'http://example.com/2/',
-                    'description': 'a' * 135,  # not truncate
+                    'description': 'a' * 125,  # not truncate
                     'published': '09 Oct 2014 15:18:59 GMT'
                 },
             ]
@@ -288,8 +288,8 @@ class TestPypiUpdatesBot(object):
 
         assert log_handler.formatted_records == [
             u'[INFO] [kuroko user]: latest_published => 20141009151858',
-            u'[INFO] [kuroko user]: a: {}... a'.format(u'a' * 132),
-            u'[INFO] [kuroko user]: a: {} a'.format(u'a' * 135),
+            u'[INFO] [kuroko user]: a: {}... a'.format(u'a' * 122),
+            u'[INFO] [kuroko user]: a: {} a'.format(u'a' * 125),
         ]
         m.assert_called_with(RSS_URL)
         assert target_obj.memcache.get('latest_published') == '20141009153126'

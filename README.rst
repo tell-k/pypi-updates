@@ -1,5 +1,5 @@
 ==========================================
-PyPI Recent Updates Bot
+pypi-updates
 ==========================================
 
 |travis| |coveralls|
@@ -34,7 +34,7 @@ Setup
 
 ::
 
- $ git clone git@github.com:tell-k/pypi-updates-bot.git
+ $ git clone git@github.com:tell-k/pypi-updates.git
 
 
 2. Create ".env" file
@@ -45,7 +45,7 @@ Setup
  $ cd pypi-updates-bot
  $ toucn .env
 
-Write your Twitter API tokens
+Write your API tokens
 
 ::
 
@@ -57,7 +57,7 @@ Write your Twitter API tokens
  BITLY_USERNAME=[your bitly username]
  BITLY_API_KEY=[your bitly api key]
 
-2. Create heroku apps and settings
+3. Create heroku apps and settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
@@ -84,7 +84,7 @@ Confirm enviroment values.
  TWITTER_CONSUMER_KEY:    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
  TWITTER_CONSUMER_SECRET: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-3. Deploy heroku apps
+4. Deploy heroku apps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
@@ -96,7 +96,6 @@ Confirm enviroment values.
 
  # Confirm application log
  $ heroku logs --tail
-
 
 Licence
 -----------------------------------------
