@@ -62,7 +62,7 @@ setup(
     packages=find_packages(exclude=["tests"]),
     description="Bot to flow Pypi recent updates.",
     long_description=long_description,
-    classfiers=classifiers,
+    classifiers=classifiers,
     install_requires=install_requires,
     tests_require=tests_require,
     cmdclass={'test': PyTest},
