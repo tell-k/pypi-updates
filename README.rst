@@ -2,7 +2,7 @@
 pypi-updates
 ==========================================
 
-|travis| |coveralls|
+|travis| |coveralls| |requires|
 
 Description
 -----------------------------------------
@@ -115,7 +115,6 @@ Support this project and `others by tell-k <https://gratipay.com/tell-k/>`_ via 
     :target: https://travis-ci.org/tell-k/pypi-updates
     :alt: travis-ci.org
 
-
 .. |coveralls| image:: https://coveralls.io/repos/tell-k/pypi-updates/badge.png
     :target: https://coveralls.io/r/tell-k/pypi-updates
     :alt: coveralls.io
@@ -123,4 +122,7 @@ Support this project and `others by tell-k <https://gratipay.com/tell-k/>`_ via 
 .. |gratipay| image:: https://raw.githubusercontent.com/twolfson/gittip-badge/master/dist/gratipay.png
     :target: https://gratipay.com/tell-k/
     :alt: gratipay
-    
+
+.. |requires| image:: https://requires.io/github/tell-k/pypi-updates/requirements.svg?branch=master
+     :target: https://requires.io/github/tell-k/pypi-updates/requirements/?branch=master
+     :alt: requires.io
