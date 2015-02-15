@@ -1,6 +1,8 @@
-include tox.ini
+include LICENCE
+include Procfile
 include README.rst
-include LICENCE.rst
+include requirements.txt
 include run.py
 include runtime.txt
+include tox.ini
 recursive-include tests *.py
