@@ -22,6 +22,17 @@ RSS_URL = "https://pypi.python.org/pypi?:action=rss"
 TWEET_MAX_LENGTH = 130
 ELIPSIS = "..."
 
+NG_WORDS = [
+    'kissanime',
+]
+
+
+def is_valid_message(msg):
+    for ng_word in NG_WORDS:
+        if ng_word in msg:
+            return False
+    return True
+
 
 class PypiUpdatesBot(kuroko.Bot):
 
@@ -111,7 +122,8 @@ class PypiUpdatesBot(kuroko.Bot):
             message = u"{} {}".format(base, url)
             self.log.info(message)
             try:
-                self.tweepy_api.update_status(message)
+                if is_valid_message(message):
+                    self.tweepy_api.update_status(message)
 
                 # update latest_published cache
                 if tmp_latest < published:

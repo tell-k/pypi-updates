@@ -9,7 +9,8 @@ Description
 
 * Bot for PyPI Recent Updates
 * Bot will check the latest RSS(https://pypi.python.org/pypi?:action=rss) once per minute.
-* https://twitter.com/pypi_updates
+* https://twitter.com/pypi_updates ... This account has been permanently frozen by Twitter.
+* https://twitter.com/pypi_updates2
 
 Required
 -----------------------------------------
