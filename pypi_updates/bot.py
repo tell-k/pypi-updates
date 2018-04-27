@@ -18,7 +18,7 @@ import bitlyapi
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
-RSS_URL = "https://pypi.python.org/pypi?:action=rss"
+RSS_URL = "https://pypi.org/rss/updates.xml"
 TWEET_MAX_LENGTH = 130
 ELIPSIS = "..."
 
