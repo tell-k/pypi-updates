@@ -64,9 +64,9 @@ Write your API tokens
 ::
 
  $ heroku login
- $ heroku create
+ $ heroku apps:create pypi-updates
  $ heroku addons:add memcachier
- $ heroku plugins:install git://github.com/ddollar/heroku-config.git
+ $ heroku plugins:install heroku-config
  $ heroku config:push
 
 Confirm enviroment values.
