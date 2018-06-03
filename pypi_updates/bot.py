@@ -100,7 +100,6 @@ class PypiUpdatesBot(kuroko.Bot):
                 continue
 
             # shorten url
-            url = item['link']
             # try:
             #     res = self.bitly_api.shorten(longUrl=item['link'])
             #     url = res['url']
@@ -110,10 +109,8 @@ class PypiUpdatesBot(kuroko.Bot):
 
             # truncate description text.
             # desc = item['description'].replace('\n', ' ')
-            base = u"{}: {}".format(
-                item['title'],
-                # desc
-            )
+            url = item['link']
+            base = item['title']
             real_len = len(base) + len(url) + 1
             if TWEET_MAX_LENGTH < real_len:
                 truncate_len = real_len - TWEET_MAX_LENGTH + len(ELIPSIS)
