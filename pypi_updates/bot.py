@@ -100,18 +100,19 @@ class PypiUpdatesBot(kuroko.Bot):
                 continue
 
             # shorten url
-            try:
-                res = self.bitly_api.shorten(longUrl=item['link'])
-                url = res['url']
-            except bitlyapi.bitly.APIError as e:
-                self.log.error(e)
-                url = item['link']
+            url = item['link']
+            # try:
+            #     res = self.bitly_api.shorten(longUrl=item['link'])
+            #     url = res['url']
+            # except bitlyapi.bitly.APIError as e:
+            #     self.log.error(e)
+            #     url = item['link']
 
             # truncate description text.
-            desc = item['description'].replace('\n', ' ')
+            # desc = item['description'].replace('\n', ' ')
             base = u"{}: {}".format(
                 item['title'],
-                desc
+                # desc
             )
             real_len = len(base) + len(url) + 1
             if TWEET_MAX_LENGTH < real_len:
