@@ -17,9 +17,9 @@ import pylibmc
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
-RSS_URL = "https://pypi.org/rss/updates.xml"
+RSS_URL = 'https://pypi.org/rss/updates.xml'
 TWEET_MAX_LENGTH = 130
-ELIPSIS = "..."
+ELIPSIS = '...'
 
 NG_WORDS = [
     'kissanime',
@@ -37,31 +37,30 @@ class PypiUpdatesBot(kuroko.Bot):
 
     @property
     def tweepy_api(self):
-        if hasattr(self, "_tweepy_api"):
+        if hasattr(self, '_tweepy_api'):
             return self._tweepy_api
         auth = tweepy.OAuthHandler(
-            os.getenv("TWITTER_CONSUMER_KEY"),
-            os.getenv("TWITTER_CONSUMER_SECRET"),
+            os.getenv('TWITTER_CONSUMER_KEY'),
+            os.getenv('TWITTER_CONSUMER_SECRET'),
         )
         auth.set_access_token(
-            os.getenv("TWITTER_ACCESS_KEY"),
-            os.getenv("TWITTER_ACCESS_SECRET")
+            os.getenv('TWITTER_ACCESS_KEY'),
+            os.getenv('TWITTER_ACCESS_SECRET')
         )
         self._tweepy_api = tweepy.API(auth)
         return self._tweepy_api
 
     @property
     def memcache(self):
-        if hasattr(self, "_memcache"):
+        if hasattr(self, '_memcache'):
             return self._memcache
         self._memcache = pylibmc.Client(
-            [os.getenv("MEMCACHIER_SERVERS")],
-            username=os.getenv("MEMCACHIER_USERNAME"),
-            password=os.getenv("MEMCACHIER_PASSWORD"),
+            [os.getenv('MEMCACHIER_SERVERS')],
+            username=os.getenv('MEMCACHIER_USERNAME'),
+            password=os.getenv('MEMCACHIER_PASSWORD'),
             binary=True
         )
         return self._memcache
-
 
     @kuroko.crontab('*/1 * * * *')
     def update_status(self):
@@ -69,19 +68,19 @@ class PypiUpdatesBot(kuroko.Bot):
         rss = feedparser.parse(RSS_URL)
         # skip non feed items.
         if not rss or not rss['items']:
-            msg = "Can't parse RSS: {}".format(RSS_URL)
+            msg = 'Cannot parse RSS: {}'.format(RSS_URL)
             self.log.warning(msg)
             print(msg)
             return
 
-        latest_published = self.memcache.get("latest_published")
+        latest_published = self.memcache.get('latest_published')
         if not latest_published:
             dt = parser.parse(rss['items'][-1]['published'])
             dt -= relativedelta(seconds=1)
             latest_published = dt.strftime('%Y%m%d%H%M%S')
-            self.memcache.set("latest_published", latest_published)
+            self.memcache.set('latest_published', latest_published)
 
-        msg = "latest_published => {}".format(latest_published)
+        msg = 'latest_published => {}'.format(latest_published)
         self.log.info(msg)
         print(msg)
         tmp_latest = latest_published
@@ -101,7 +100,7 @@ class PypiUpdatesBot(kuroko.Bot):
                 title = title[:-truncate_len] + ELIPSIS
 
             # tweet
-            message = u"{} {}".format(title, item['link'])
+            message = u'{} {}'.format(title, item['link'])
             self.log.info(message)
             print(message)
             try:
@@ -111,7 +110,7 @@ class PypiUpdatesBot(kuroko.Bot):
                 # update latest_published cache
                 if tmp_latest < published:
                     tmp_latest = published
-                    self.memcache.set("latest_published", published)
+                    self.memcache.set('latest_published', published)
 
             except tweepy.TweepError as e:
                 self.log.error(e.message)

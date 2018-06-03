@@ -22,7 +22,8 @@ class PyTest(TestCommand):
     def run_tests(self):
         # import here, cause outside the eggs aren't loaded
         import pytest
-        errno = pytest.main(self.pytest_args)
+        args = [a.strip() for a in self.pytest_args.split(' ')]
+        errno = pytest.main(args)
         sys.exit(errno)
 
 here = os.path.dirname(__file__)
