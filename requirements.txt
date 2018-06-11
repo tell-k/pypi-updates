@@ -1,5 +1,4 @@
 argh==0.26.2
-bitlyapi==0.1.1
 certifi==2018.4.16
 chardet==3.0.4
 crontab==0.22.1
