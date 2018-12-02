@@ -98,13 +98,6 @@ Licence
 * MIT License
 * See the LICENSE file for specific terms.
 
-Donating
------------------------------------------
-
-Support this project and `others by tell-k <https://gratipay.com/tell-k/>`_ via `Gratipay <https://gratipay.com/tell-k/>`_.
-
-|gratipay|
-
 
 .. |travis| image:: https://travis-ci.org/tell-k/pypi-updates.svg?branch=master
     :target: https://travis-ci.org/tell-k/pypi-updates
@@ -113,10 +106,6 @@ Support this project and `others by tell-k <https://gratipay.com/tell-k/>`_ via 
 .. |coveralls| image:: https://coveralls.io/repos/tell-k/pypi-updates/badge.png
     :target: https://coveralls.io/r/tell-k/pypi-updates
     :alt: coveralls.io
-
-.. |gratipay| image:: https://raw.githubusercontent.com/twolfson/gittip-badge/master/dist/gratipay.png
-    :target: https://gratipay.com/tell-k/
-    :alt: gratipay
 
 .. |requires| image:: https://requires.io/github/tell-k/pypi-updates/requirements.svg?branch=master
      :target: https://requires.io/github/tell-k/pypi-updates/requirements/?branch=master
