@@ -13,7 +13,7 @@ py==1.5.3
 pylibmc==1.5.2
 PySocks==1.6.8
 python-dateutil==2.4.0
-PyYAML==3.12
+PyYAML==5.4
 requests==2.20.1
 requests-oauthlib==0.8.0
 six==1.11.0
